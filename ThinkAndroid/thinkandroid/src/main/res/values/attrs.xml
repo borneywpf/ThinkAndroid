@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleImageView">
+        <attr name="radius" format="dimension"/>
+        <attr name="iscircle" format="boolean"/>
+        <attr name="cropType">
+            <flag name="leftTop" value="1"/>
+            <flag name="leftBottom" value="2"/>
+            <flag name="rightTop" value="3"/>
+            <flag name="rightBottom" value="4"/>
+            <flag name="leftCenter" value="5"/>
+            <flag name="rightCenter" value="6"/>
+            <flag name="topCenter" value="7"/>
+            <flag name="bottomCenter" value="8"/>
+            <flag name="center" value="9"/>
+        </attr>
+        <attr name="drawType">
+            <flag name="shader" value="1"/>
+            <flag name="xfermode" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>
