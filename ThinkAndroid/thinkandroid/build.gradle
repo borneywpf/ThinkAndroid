@@ -17,6 +17,11 @@ android {
     }
     productFlavors {
     }
+    android {
+      lintOptions {
+          abortOnError false
+      }
+    }
 }
 
 dependencies {
