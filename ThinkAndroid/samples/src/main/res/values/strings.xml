@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">Samples</string>
-    <string name="circleimageview">CircleImageView</string>
+    <string name="app_name">ThinkAndroidSamples</string>
+    <string name="circleimageview">Widget/CircleImageView</string>
+    <string name="circlerotaprogressbar">Widget/CircleRotaProgressBar</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
 </resources>

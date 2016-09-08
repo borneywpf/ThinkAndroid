@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.CircleRotaProgressBarNormal" parent="@android:style/Widget">
+        <item name="progressWidth">4dp</item>
+    </style>
+    <style name="Widget.CircleRotaProgressBarWide" parent="@android:style/Widget">
+        <item name="progressWidth">6dp</item>
+    </style>
+    <style name="Widget.CircleRotaProgressBarNarrow" parent="@android:style/Widget">
+        <item name="progressWidth">2dp</item>
+    </style>
+</resources>

@@ -1,4 +1,4 @@
-package com.think.android.samples;
+package com.think.android.support.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

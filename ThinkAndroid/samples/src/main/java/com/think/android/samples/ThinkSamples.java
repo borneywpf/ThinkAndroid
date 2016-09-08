@@ -1,8 +1,10 @@
 package com.think.android.samples;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.think.android.support.widget.ItemDecorationVerticalDivider;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -44,7 +48,7 @@ public class ThinkSamples extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new ItemDecorationVerticalDivider(this));
         List<Map<String, Object>> datas = getData(path);
         Log.d(TAG, "datas = " + datas);
-        mRecyclerView.setAdapter(new ViewAdapter(datas));
+        mRecyclerView.setAdapter(new ViewAdapter(this, datas));
     }
 
     private List<Map<String, Object>> getData(String prefix) {
@@ -133,9 +137,19 @@ public class ThinkSamples extends AppCompatActivity {
     private class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         private final List<Map<String, Object>> datas;
+        private int itemBackground = 0;
 
-        public ViewAdapter(List<Map<String, Object>> datas) {
+        public ViewAdapter(Context context, List<Map<String, Object>> datas) {
             this.datas = datas;
+            int[] attrs = new int[]{android.R.attr.selectableItemBackground};
+            TypedArray array = context.obtainStyledAttributes(attrs);
+            try {
+                itemBackground = array.getResourceId(0, 0);
+            } finally {
+                if (array != null) {
+                    array.recycle();
+                }
+            }
         }
 
         @Override
@@ -149,6 +163,7 @@ public class ThinkSamples extends AppCompatActivity {
             final Map<String, Object> map = datas.get(position);
             Log.d(TAG, "map = " + map);
             holder.textView.setText((CharSequence) map.get("title"));
+            holder.itemView.setBackgroundResource(itemBackground);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

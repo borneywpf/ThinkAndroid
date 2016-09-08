@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+        <item name="colorPrimary">@android:color/holo_blue_light</item>
+    </style>
+
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@android:color/holo_blue_light</item>
     </style>
 </resources>

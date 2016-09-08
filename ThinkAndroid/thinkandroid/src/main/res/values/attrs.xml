@@ -19,4 +19,9 @@
             <flag name="xfermode" value="2"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="CircleRotaProgressBar">
+        <attr name="progressWidth" format="dimension"/>
+    </declare-styleable>
+
 </resources>
