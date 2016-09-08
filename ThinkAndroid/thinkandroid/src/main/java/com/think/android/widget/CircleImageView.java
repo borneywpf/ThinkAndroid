@@ -183,7 +183,6 @@ public class CircleImageView extends ImageView {
             src.top = xy[1] - radius;
             src.bottom = xy[1] + radius;
             canvas.drawBitmap(bitmap, src, new Rect(0, 0, width, height), null);
-            canvas.restoreToCount(restore);
         } else {
             RectF rect = new RectF(0, 0, width, height);
             canvas.drawRoundRect(rect, radius, radius, paint);
@@ -191,8 +190,8 @@ public class CircleImageView extends ImageView {
             canvas.saveLayer(0, 0, width, height, paint, Canvas.ALL_SAVE_FLAG);
             Bitmap bitmap = drawableToBitmap(getDrawable());
             canvas.drawBitmap(bitmap, 0, 0, null);
-            canvas.restoreToCount(restore);
         }
+        canvas.restoreToCount(restore);
         paint.setXfermode(null);
     }
 

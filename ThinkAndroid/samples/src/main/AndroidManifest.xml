@@ -7,12 +7,22 @@
         android:supportsRtl="true">
         
         <activity
-            android:name=".CircleImageViewDemo"
+            android:name=".ThinkSamples"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:label="@string/circleimageview"
+            android:name=".widget.CircleImageViewDemo"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="think.android.category.SAMPLE_CODE"/>
             </intent-filter>
         </activity>
     
