@@ -25,6 +25,8 @@ import com.think.android.R;
  */
 public class CircleRotaProgressBar extends TextView {
     private static final String TAG = "CircleRotaProgressBar";
+
+    private static final boolean DEBUG = false;
     /**
      * 进度
      */
@@ -147,6 +149,7 @@ public class CircleRotaProgressBar extends TextView {
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
+                if (DEBUG) Log.d(TAG, "onAnimationUpdate = " + animation.getAnimatedValue());
                 invalidate();
             }
         });
@@ -232,6 +235,7 @@ public class CircleRotaProgressBar extends TextView {
                 }
             }
         }
+//        super.setVisibility(visibility);
     }
 
     /**
@@ -247,12 +251,12 @@ public class CircleRotaProgressBar extends TextView {
         int h = MeasureSpec.getSize(heightMeasureSpec);
         h = (h > 0) ? w : size;
 
-        Log.d(TAG, "w = " + w + " h = " + h);
+        if (DEBUG) Log.d(TAG, "w = " + w + " h = " + h);
 
         w += getPaddingLeft() + getPaddingRight();
         h += getPaddingTop() + getPaddingBottom();
 
-        Log.d(TAG, "p w = " + w + " h = " + h);
+        if (DEBUG) Log.d(TAG, "p w = " + w + " h = " + h);
 
         final int measuredWidth = resolveSizeAndState(Math.min(w, h), widthMeasureSpec, 0);
         final int measuredHeight = resolveSizeAndState(Math.min(w, h), heightMeasureSpec, 0);
@@ -330,6 +334,8 @@ public class CircleRotaProgressBar extends TextView {
     private void endAnimation() {
         valueAnimator.end();
         _valueAnimator.end();
+        valueAnimator.cancel();
+        _valueAnimator.cancel();
     }
 
     /**

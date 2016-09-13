@@ -3,6 +3,7 @@ package com.think.android.samples.widget;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class CircleRotaProgressBarDemo extends AppCompatActivity {
     private CircleRotaProgressBar mCircleRotaProgressBar3;
     private SeekBar mSeekBar;
     private ToggleButton mButton;
+    private ToggleButton mVisibleBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class CircleRotaProgressBarDemo extends AppCompatActivity {
         mCircleRotaProgressBar3 = (CircleRotaProgressBar) findViewById(R.id.circlerotaprogressbar3);
         mSeekBar = (SeekBar) findViewById(R.id.seekbar);
         mButton = (ToggleButton) findViewById(R.id.button);
+        mVisibleBtn = (ToggleButton) findViewById(R.id.visibility);
         mTextView.setText(String.valueOf(mSeekBar.getProgress()));
         mCircleRotaProgressBar1.setProgress(mSeekBar.getProgress());
         mCircleRotaProgressBar2.setProgress(mSeekBar.getProgress());
@@ -59,10 +62,18 @@ public class CircleRotaProgressBarDemo extends AppCompatActivity {
         mButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mButton.setText(isChecked ? getText(R.string.pause) : getText(R.string.start));
                 mCircleRotaProgressBar1.setState(isChecked ? CircleRotaProgressBar.State.START : CircleRotaProgressBar.State.PAUSE);
                 mCircleRotaProgressBar2.setState(isChecked ? CircleRotaProgressBar.State.START : CircleRotaProgressBar.State.PAUSE);
                 mCircleRotaProgressBar3.setState(isChecked ? CircleRotaProgressBar.State.START : CircleRotaProgressBar.State.PAUSE);
+            }
+        });
+
+        mVisibleBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mCircleRotaProgressBar1.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
+                mCircleRotaProgressBar2.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
+                mCircleRotaProgressBar3.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
             }
         });
     }

@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:padding="15dp"
         android:background="@android:color/darker_gray">
 
@@ -55,7 +55,7 @@
             android:layout_gravity="center"
             android:layout_centerHorizontal="true"
             android:padding="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:textSize="46sp"
             android:textColor="@android:color/white"
             android:background="@android:color/holo_blue_light"
@@ -68,7 +68,7 @@
         android:id="@+id/seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:progress="26"/>
@@ -77,12 +77,23 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:textSize="24dp"
         android:checked="false"
         android:textOff="@string/pause"
         android:textOn="@string/start"/>
+    <ToggleButton
+        android:id="@+id/visibility"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:textSize="24dp"
+        android:checked="true"
+        android:textOn="@string/visible"
+        android:textOff="@string/invisible"/>
 
 </LinearLayout>
