@@ -166,8 +166,7 @@ public class CircleRotaProgressBar extends TextView {
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (!valueAnimator.isStarted() && state == State.START) { //在第二个点结束动画后，才继续开始第一个动画和第二个动画
-                    valueAnimator.start();
-                    _valueAnimator.start();
+                    startAnimation();
                 }
             }
         });
@@ -180,6 +179,9 @@ public class CircleRotaProgressBar extends TextView {
     public void setProgress(int p) {
         if (p < 0 || p > 100) {
             throw new RuntimeException("progress(" + p + ") must be betain 0 and 100");
+        }
+        if (p == progress) {
+            return;
         }
         progress = p;
         sweepAngle = getSweepAngleByProgress(progress);
@@ -204,6 +206,9 @@ public class CircleRotaProgressBar extends TextView {
     public void setState(State s) {
         if (s == null) {
             throw new NullPointerException("s is null");
+        }
+        if (s == state) {
+            return;
         }
         state = s;
         if (state == State.START) {
