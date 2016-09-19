@@ -2,6 +2,7 @@
     <string name="app_name">ThinkAndroidSamples</string>
     <string name="circleimageview">Widget/CircleImageView</string>
     <string name="circlerotaprogressbar">Widget/CircleRotaProgressBar</string>
+    <string name="tabselectorlayout">Widget/TabSelectorLayout</string>
     <string name="start">Pause</string>
     <string name="pause">Start</string>
     <string name="visible">INVISIBLE</string>

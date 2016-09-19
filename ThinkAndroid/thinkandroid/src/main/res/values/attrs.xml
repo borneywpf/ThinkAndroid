@@ -29,4 +29,13 @@
         <attr name="secondaryProgressColor" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="CustomLayoutLP">
+        <attr name="android:layout_gravity" />
+        <attr name="layout_position">
+            <enum name="middle" value="0" />
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+    </declare-styleable>
+
 </resources>
