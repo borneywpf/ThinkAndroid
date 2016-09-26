@@ -7,4 +7,6 @@
     <string name="pause">Start</string>
     <string name="visible">INVISIBLE</string>
     <string name="invisible">VISIBLE</string>
+    <string name="gradualframedrawable">Graphics/GradualFrameDrawable</string>
+    <string name="layerdrawable">Graphics/LayerDrawable</string>
 </resources>

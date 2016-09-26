@@ -45,6 +45,26 @@
                 <category android:name="think.android.category.SAMPLE_CODE"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:label="@string/gradualframedrawable"
+            android:name=".graphics.GradualFrameDrawableDemo"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="think.android.category.SAMPLE_CODE"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:label="@string/layerdrawable"
+            android:name=".graphics.LayerDrawableDemo"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="think.android.category.SAMPLE_CODE"/>
+            </intent-filter>
+        </activity>
     
     </application>
 
