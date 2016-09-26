@@ -9,4 +9,5 @@
     <string name="invisible">VISIBLE</string>
     <string name="gradualframedrawable">Graphics/GradualFrameDrawable</string>
     <string name="layerdrawable">Graphics/LayerDrawable</string>
+    <string name="spantextview">Widget/SpanTextView</string>
 </resources>

@@ -65,6 +65,16 @@
                 <category android:name="think.android.category.SAMPLE_CODE"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:label="@string/spantextview"
+            android:name=".widget.SpanTextViewDemo"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="think.android.category.SAMPLE_CODE"/>
+            </intent-filter>
+        </activity>
     
     </application>
 
