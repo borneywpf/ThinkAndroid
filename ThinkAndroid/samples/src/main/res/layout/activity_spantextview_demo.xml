@@ -17,4 +17,14 @@
         android:id="@+id/spantextview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/darker_gray"/>
+    <com.think.android.widget.SpanTextView
+        android:id="@+id/spantextview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
