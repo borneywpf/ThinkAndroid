@@ -149,7 +149,6 @@ public class SpanTextView extends TextView {
 
         /**
          * 设置背景
-         *
          * @param drawable
          * @return
          */
@@ -158,6 +157,7 @@ public class SpanTextView extends TextView {
         }
 
         /**
+         * 设置背景
          * @param drawable
          * @param flags
          * @return
@@ -167,6 +167,7 @@ public class SpanTextView extends TextView {
         }
 
         /**
+         * 设置背景
          * @param drawable
          * @param flags
          * @return

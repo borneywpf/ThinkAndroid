@@ -15,6 +15,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.think.android.R;
 
@@ -104,12 +105,15 @@ public class TabSelectorLayout extends ViewGroup {
         });
         addView(tabView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         tab.setPosition(indexOfChild(tabView));
+        if (tab.position == 3) {
+            tabView.setBackgroundColor(Color.BLUE);
+        }
         return tab.position;
     }
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if (child instanceof TabView) {
+        if (child instanceof TabView || child instanceof RelativeLayout) {
             super.addView(child, index, params);
         } else {
             throw new IllegalArgumentException("child is not TabView");
@@ -143,7 +147,7 @@ public class TabSelectorLayout extends ViewGroup {
         final int count = getChildCount();
 
         for (int i = 0; i < count; i++) {
-            TabView child = (TabView) getChildAt(i);
+            View child = getChildAt(i);
             child.setSelected(item == i);
         }
     }
