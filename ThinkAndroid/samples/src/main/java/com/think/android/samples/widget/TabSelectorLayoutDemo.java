@@ -2,8 +2,7 @@ package com.think.android.samples.widget;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.PixelFormat;
-import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,23 +10,25 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.think.android.samples.R;
+import com.think.android.widget.BadgeView;
 import com.think.android.widget.TabSelectorLayout;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.think.android.widget.BadgeView.LayoutParams;
 
 /**
  * Created by borney on 9/19/16.
@@ -37,6 +38,11 @@ public class TabSelectorLayoutDemo extends AppCompatActivity {
     private TabSelectorLayout mTabSelectorLayout;
     private ViewPager mViewPager;
     private Map<Integer, MyFragment> mFragmentMap = new HashMap<>();
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient mClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,52 +67,66 @@ public class TabSelectorLayoutDemo extends AppCompatActivity {
                 .setNormalDrawable(resources.getDrawable(R.drawable.ic_tab_msg))
                 .setSelectDrawable(resources.getDrawable(R.drawable.ic_tab_msg_select))
                 .setTitle("message"));
-        mFragmentMap.put(pos, new MyFragment(pos));
+        mFragmentMap.put(pos, new My3Fragment(pos));
 
-        final int[] location = new int[2];
+        BadgeView.Build build = new BadgeView.Build(mTabSelectorLayout.getChildAt(pos));
+        LayoutParams params = new LayoutParams(60, 60);
+        params.marginLeft = 160;
+        params.marginTop = 0;
+        build.laytouParams(params);
+        build.text(String.valueOf(9));
+        build.drawable(getDrawable(R.drawable.ic_number_bg));
+        build.build().show();
+
         pos = mTabSelectorLayout.addTab(TabSelectorLayout.newTab()
                 .setNormalDrawable(resources.getDrawable(R.drawable.ic_tab_person))
                 .setSelectDrawable(resources.getDrawable(R.drawable.ic_tab_person_select))
                 .setTitle("person"));
         mFragmentMap.put(pos, new MyFragment(pos));
 
-        final View child = mTabSelectorLayout.getChildAt(pos);
-        child.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            int count = 0;
-            @Override
-            public void onGlobalLayout() {
-                if (count != 0) return;
-                count++;
-                child.getLocationInWindow(location);
-                Log.d(TAG, "location[0] = " + location[0] + " location[1] = " + location[1]);
-                TextView textView = new TextView(TabSelectorLayoutDemo.this);
-                textView.setBackgroundResource(R.drawable.ic_number_bg);
-                textView.setGravity(Gravity.CENTER);
-                textView.setText("10");
-                textView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        Log.d(TAG, "x = " + event.getRawX() + " y = " + event.getRawY());
-                        return false;
-                    }
-                });
-                WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-                params.gravity = Gravity.TOP | Gravity.LEFT;
-                int max = Math.max(textView.getBackground().getIntrinsicWidth(), textView.getBackground().getIntrinsicHeight());
-                params.width = 60;
-                params.height = 60;
-                params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-                params.format = PixelFormat.TRANSPARENT;
-                params.x = location[0];
-                params.y = location[1] - child.getHeight() / 2;
-                getWindow().getWindowManager().addView(textView, params);
-            }
-        });
-
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
 
         mTabSelectorLayout.bindViewPager(mViewPager);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("TabSelectorLayoutDemo Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        mClient.connect();
+        AppIndex.AppIndexApi.start(mClient, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(mClient, getIndexApiAction());
+        mClient.disconnect();
     }
 
 
@@ -128,7 +148,7 @@ public class TabSelectorLayoutDemo extends AppCompatActivity {
     }
 
     class MyFragment extends Fragment {
-        private int position;
+        int position;
 
         MyFragment(int position) {
             this.position = position;
@@ -144,6 +164,20 @@ public class TabSelectorLayoutDemo extends AppCompatActivity {
             textView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 36, context.getResources().getDisplayMetrics()));
             textView.setText(String.valueOf(position));
             return textView;
+        }
+    }
+
+    class My3Fragment extends MyFragment {
+
+        My3Fragment(int position) {
+            super(position);
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_tabselectorlayout_three, container, false);
+            return view;
         }
     }
 }

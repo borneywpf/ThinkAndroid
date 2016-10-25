@@ -105,9 +105,6 @@ public class TabSelectorLayout extends ViewGroup {
         });
         addView(tabView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         tab.setPosition(indexOfChild(tabView));
-        if (tab.position == 3) {
-            tabView.setBackgroundColor(Color.BLUE);
-        }
         return tab.position;
     }
 
