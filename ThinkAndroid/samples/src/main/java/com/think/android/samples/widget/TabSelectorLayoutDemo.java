@@ -2,7 +2,6 @@ package com.think.android.samples.widget;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,12 +14,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.think.android.samples.R;
 import com.think.android.widget.BadgeView;
 import com.think.android.widget.TabSelectorLayout;
@@ -38,11 +34,8 @@ public class TabSelectorLayoutDemo extends AppCompatActivity {
     private TabSelectorLayout mTabSelectorLayout;
     private ViewPager mViewPager;
     private Map<Integer, MyFragment> mFragmentMap = new HashMap<>();
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient mClient;
+    private BadgeView mBadgeView3;
+    private int count3 = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,14 +62,16 @@ public class TabSelectorLayoutDemo extends AppCompatActivity {
                 .setTitle("message"));
         mFragmentMap.put(pos, new My3Fragment(pos));
 
-        BadgeView.Build build = new BadgeView.Build(mTabSelectorLayout.getChildAt(pos));
+        View at = mTabSelectorLayout.getChildAt(pos);
+        BadgeView.Build build = new BadgeView.Build(at);
         LayoutParams params = new LayoutParams(60, 60);
         params.marginLeft = 160;
-        params.marginTop = 0;
+        params.marginTop = -10;
         build.laytouParams(params);
-        build.text(String.valueOf(9));
+        build.text(String.valueOf(count3));
         build.drawable(getDrawable(R.drawable.ic_number_bg));
-        build.build().show();
+        mBadgeView3 = build.build();
+        mBadgeView3.show();
 
         pos = mTabSelectorLayout.addTab(TabSelectorLayout.newTab()
                 .setNormalDrawable(resources.getDrawable(R.drawable.ic_tab_person))
@@ -88,45 +83,6 @@ public class TabSelectorLayoutDemo extends AppCompatActivity {
         mViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
 
         mTabSelectorLayout.bindViewPager(mViewPager);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("TabSelectorLayoutDemo Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        mClient.connect();
-        AppIndex.AppIndexApi.start(mClient, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(mClient, getIndexApiAction());
-        mClient.disconnect();
     }
 
 
@@ -177,6 +133,67 @@ public class TabSelectorLayoutDemo extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_tabselectorlayout_three, container, false);
+            Button addCount = (Button) view.findViewById(R.id.addcount);
+            addCount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int value = ++count3;
+                    mBadgeView3.updateText(String.valueOf(value));
+                }
+            });
+
+            Button show = (Button) view.findViewById(R.id.show);
+            show.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mBadgeView3.show();
+                }
+            });
+
+            Button hide = (Button) view.findViewById(R.id.hide);
+            hide.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mBadgeView3.gone();
+                }
+            });
+
+            Button updateDrawable = (Button) view.findViewById(R.id.updateDrawable);
+            updateDrawable.setOnClickListener(new View.OnClickListener() {
+                boolean drawable_l = false;
+
+                @Override
+                public void onClick(View v) {
+                    if (!drawable_l) {
+                        mBadgeView3.updateDrawable(getDrawable(R.drawable.ic_number_l_bg));
+                        drawable_l = true;
+                    } else {
+                        mBadgeView3.updateDrawable(getDrawable(R.drawable.ic_number_bg));
+                        drawable_l = false;
+                    }
+                }
+            });
+
+            Button updateParams = (Button) view.findViewById(R.id.updateParams);
+            updateParams.setOnClickListener(new View.OnClickListener() {
+                boolean new_params = false;
+                @Override
+                public void onClick(View v) {
+                    if (!new_params) {
+                        LayoutParams params = new LayoutParams(80, 80);
+                        params.marginLeft = 160;
+                        params.marginTop = -20;
+                        mBadgeView3.updateLayoutParams(params);
+                        new_params = true;
+                    } else {
+                        LayoutParams params = new LayoutParams(60, 60);
+                        params.marginLeft = 160;
+                        params.marginTop = -10;
+                        mBadgeView3.updateLayoutParams(params);
+                        new_params = false;
+                    }
+                }
+            });
             return view;
         }
     }

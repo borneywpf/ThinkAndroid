@@ -15,7 +15,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.think.android.R;
 
@@ -32,13 +31,13 @@ public class TabSelectorLayout extends ViewGroup {
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            TabView cur = (TabView) getChildAt(position);
+            TabOffSetable cur = (TabOffSetable) getChildAt(position);
             if (positionOffset > 0) {
-                cur.setTabOffSet(1 - positionOffset);
-                TabView next = (TabView) getChildAt(position + 1);
-                next.setTabOffSet(positionOffset);
+                cur.tabOffSet(1 - positionOffset);
+                TabOffSetable next = (TabOffSetable) getChildAt(position + 1);
+                next.tabOffSet(positionOffset);
             } else {
-                cur.setTabOffSet(1 - positionOffset);
+                cur.tabOffSet(1 - positionOffset);
             }
         }
 
@@ -110,7 +109,7 @@ public class TabSelectorLayout extends ViewGroup {
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if (child instanceof TabView || child instanceof RelativeLayout) {
+        if (child instanceof TabOffSetable) {
             super.addView(child, index, params);
         } else {
             throw new IllegalArgumentException("child is not TabView");
@@ -167,7 +166,7 @@ public class TabSelectorLayout extends ViewGroup {
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
-                child.measure(MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
+                child.measure(MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
                 int h = child.getMeasuredHeight();
                 int w = child.getMeasuredWidth();
                 maxChildHeight = maxChildHeight > h ? maxChildHeight : h;
@@ -248,6 +247,10 @@ public class TabSelectorLayout extends ViewGroup {
         }
     }
 
+    public interface TabOffSetable {
+        void tabOffSet(float offSet);
+    }
+
     public static final class Tab {
         Drawable normalDrawable;
         Drawable selectDrawable;
@@ -282,7 +285,7 @@ public class TabSelectorLayout extends ViewGroup {
         }
     }
 
-    private class TabView extends View {
+    private class TabView extends View implements TabOffSetable {
         private int normalAlpha = 255;
         private int viewWidth;
         private int viewHeight;
@@ -320,7 +323,8 @@ public class TabSelectorLayout extends ViewGroup {
             this.tab = tab;
         }
 
-        void setTabOffSet(float offSet) {
+        @Override
+        public void tabOffSet(float offSet) {
             normalAlpha = (int) (255 - offSet * 255);
             invalidate();
         }
@@ -346,7 +350,7 @@ public class TabSelectorLayout extends ViewGroup {
             int desiredWidth = getPaddingLeft() + getPaddingRight() + contentWidth;
             switch (widthMode) {
                 case MeasureSpec.AT_MOST:
-                    w = Math.min(width, desiredWidth);
+                    w = width;
                     break;
                 case MeasureSpec.EXACTLY:
                     w = width;

@@ -92,14 +92,14 @@ public class BadgeView {
     public void updateLayoutParams(BadgeView.LayoutParams layoutParams) {
         params.width = layoutParams.width;
         params.height = layoutParams.height;
+        updateTargetLocation();
         params.x = targetLocation[0] + layoutParams.marginLeft;
         params.y = targetLocation[1] - targetHeight / 2 + layoutParams.marginTop;
-        params.gravity = layoutParams.gravity;
         windowManager.updateViewLayout(view, params);
     }
 
     public void updateTargetLocation() {
-        target.getLocationInWindow(targetLocation);
+        target.getLocationOnScreen(targetLocation);
     }
 
     private void setView(View view, int marginLeft, int marginTop) {
@@ -195,15 +195,6 @@ public class BadgeView {
         public int marginLeft;
 
         public int marginTop;
-
-        /**
-         * {@link LayoutParams#gravity}
-         *
-         * @see WindowManager
-         *
-         * @see Gravity
-         */
-        public int gravity;
 
         public LayoutParams() {
             super(WRAP_CONTENT, WRAP_CONTENT);

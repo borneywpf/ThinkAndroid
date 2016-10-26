@@ -29,6 +29,20 @@
         android:id="@+id/addcount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Count"
+        android:text="修改数值(+1)"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/updateDrawable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更新图片"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/updateParams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更新参数"
         android:textSize="16sp"/>
 </LinearLayout>
