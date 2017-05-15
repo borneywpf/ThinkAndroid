@@ -1,5 +1,7 @@
 package com.think.android.widget;
 
+import static android.R.attr.maxHeight;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
@@ -179,41 +181,23 @@ public class SpanTextView extends TextView {
                 public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y,
                                  int bottom, Paint paint) {
                     String sequence = text.subSequence(start, end).toString();
-                    Rect boundText = new Rect();
-                    paint.getTextBounds(sequence, 0, sequence.length(), boundText);
+                    Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+                    float textWidth = paint.measureText(text, start, end);
+                    float textHeight = fontMetrics.ascent + fontMetrics.descent;
                     Drawable b = getDrawable();
                     Rect bounds = b.getBounds();
 
-                    int w = bounds.width() < boundText.width() ? boundText.width() : bounds.width();
-                    int h = bounds.height();
+                    int width = bounds.width() < textWidth ? (int) textWidth : bounds.width();
+                    int height = bounds.height() < textHeight ? (int) textHeight : bounds.height();
 
-                    float fontHeight = boundText.height();
-                    int maxHeight = (int) ((bottom - y) * 2 + fontHeight);
-                    if (h < fontHeight) {
-                        h = (int) fontHeight;
-                    } else {
-                        if (h > maxHeight) {
-                            h = maxHeight;
-                        }
-                    }
+                    b.setBounds(0, 0, width, height);
 
-                    b.setBounds(0, 0, w, h);
-
-                    /*
-                    paint.setColor(Color.WHITE);
-                    canvas.drawRect(x + (bounds.width() - boundText.width()) / 2,
-                            bottom - (bottom - y) - fontHeight,
-                            (x + (bounds.width() - boundText.width()) / 2) + boundText.width(),
-                            bottom - (bottom - y),
-                            paint);
-                    */
                     canvas.save();
-                    int transY = top + (bottom - top - maxHeight) + (maxHeight - bounds.height()) / 2;
+                    int transY = (int) (y + textHeight / 2 - b.getBounds().bottom / 2 - fontMetrics.descent);
                     canvas.translate(x, transY);
                     b.draw(canvas);
                     canvas.restore();
-                    paint.setColor(Color.BLACK);
-                    canvas.drawText(sequence, x + (bounds.width() - boundText.width()) / 2, y, paint);
+                    canvas.drawText(sequence, x + (width - textWidth) / 2, y - fontMetrics.descent, paint);
                 }
             }, flags);
             return this;
